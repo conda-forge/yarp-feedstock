@@ -62,7 +62,7 @@ outputs:
         - libedit  # [not win]
         - libopencv
         # Workaround for win build problems 
-        - openssl 1.1.1 # [win]
+        - openssl 1.1.1  # [win]
 
       run:
         # ycm and eigen are mentioned in the headers so needed when building
@@ -98,7 +98,7 @@ outputs:
         - {{ pin_subpackage(namecxx, exact=True) }}
         - python
         - pip
-        - openssl 1.1.1 # [win]
+        - openssl 1.1.1  # [win]
 
       run:
         - {{ pin_subpackage(namecxx, exact=True) }}
