@@ -9,7 +9,7 @@ cmake -G "Ninja" ^
     -DYARP_COMPILE_TESTS:BOOL=ON ^
     -DBUILD_SHARED_LIBS:BOOL=ON ^
     -DYARP_COMPILE_BINDINGS:BOOL=OFF ^
-    -DYARP_COMPILE_GUIS:BOOL=OFF ^
+    -DYARP_COMPILE_GUIS:BOOL=ON ^
     -DYARP_COMPILE_libYARP_math:BOOL=ON ^
     -DYARP_COMPILE_CARRIER_PLUGINS:BOOL=ON ^
     -DENABLE_yarpcar_bayer:BOOL=ON ^
@@ -31,10 +31,10 @@ cmake -G "Ninja" ^
     -DENABLE_yarpmod_serialport:BOOL=ON ^
     -DENABLE_yarpmod_AudioPlayerWrapper:BOOL=ON ^
     -DENABLE_yarpmod_AudioRecorderWrapper:BOOL=ON ^
-    -DENABLE_yarpmod_opencv_grabber:BOOL=OFF ^
-    -DENABLE_yarpmod_portaudio:BOOL=OFF ^
-    -DENABLE_yarpmod_portaudioPlayer:BOOL=OFF ^
-    -DENABLE_yarpmod_portaudioRecorder:BOOL=OFF ^
+    -DENABLE_yarpmod_opencv_grabber:BOOL=ON ^
+    -DENABLE_yarpmod_portaudio:BOOL=ON ^
+    -DENABLE_yarpmod_portaudioPlayer:BOOL=ON ^
+    -DENABLE_yarpmod_portaudioRecorder:BOOL=ON ^
     -DENABLE_yarpmod_fakeAnalogSensor:BOOL=ON ^
     -DENABLE_yarpmod_fakeBattery:BOOL=ON ^
     -DENABLE_yarpmod_fakeDepthCamera:BOOL=ON ^
