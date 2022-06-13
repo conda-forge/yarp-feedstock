@@ -14,7 +14,7 @@ source:
     - 2852.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - name: {{ namecxx }}
@@ -60,6 +60,7 @@ outputs:
         - libzlib
         - soxr
         - libedit  # [not win]
+        - libopencv
 
       run:
         # ycm and eigen are mentioned in the headers so needed when building
