@@ -63,8 +63,8 @@ outputs:
         - libopencv
         - portaudio
         - qt-main
-        # Workaround for win build problems 
-        - openssl 1.1.1  # [win]
+        # Workaround for build problems 
+        - openssl 1.1.1
 
       run:
         # ycm and eigen are mentioned in the headers so needed when building
