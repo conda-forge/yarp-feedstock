@@ -14,7 +14,7 @@ source:
     - 2852.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - name: {{ namecxx }}
@@ -60,6 +60,9 @@ outputs:
         - libzlib
         - soxr
         - libedit  # [not win]
+        - libopencv
+        - portaudio
+        - qt-main
 
       run:
         # ycm and eigen are mentioned in the headers so needed when building
@@ -95,6 +98,8 @@ outputs:
         - {{ pin_subpackage(namecxx, exact=True) }}
         - python
         - pip
+        - openssl 1.1.1
+
       run:
         - {{ pin_subpackage(namecxx, exact=True) }}
         - python
