@@ -98,8 +98,7 @@ outputs:
         - {{ pin_subpackage(namecxx, exact=True) }}
         - python
         - pip
-        - openssl 1.1.1  # [win]
-        - openssl 3  # [not win]
+        - openssl 1.1.1
 
       run:
         - {{ pin_subpackage(namecxx, exact=True) }}
