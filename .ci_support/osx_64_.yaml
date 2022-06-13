@@ -14,6 +14,8 @@ cxx_compiler_version:
 - '13'
 jpeg:
 - '9'
+libopencv:
+- 4.5.5
 libpng:
 - '1.6'
 macos_machine:
