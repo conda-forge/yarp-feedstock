@@ -61,6 +61,8 @@ outputs:
         - soxr
         - libedit  # [not win]
         - libopencv
+        - portaudio
+        - qt-main
         # Workaround for win build problems 
         - openssl 1.1.1  # [win]
 
