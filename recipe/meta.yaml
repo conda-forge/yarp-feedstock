@@ -14,7 +14,7 @@ source:
     - 2852.patch
 
 build:
-  number: 3
+  number: 4
 
 outputs:
   - name: {{ namecxx }}
@@ -120,7 +120,7 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage(namecxx, exact=True) }}
-        - {{ pin_subpackage(namepython, exact=True) }}
+        - {{ pin_subpackage(namepython, max_pin='x.x.x') }}
     test:
       imports:
         - yarp
