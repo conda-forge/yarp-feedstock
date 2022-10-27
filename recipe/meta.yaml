@@ -12,7 +12,7 @@ source:
   sha256: bf16e70b26e9b33323e17c4a298499e50299641a7c384904b331f2fb247c84cf
 
 build:
-  number: 1
+  number: 2
 
 outputs:
   - name: {{ namecxx }}
@@ -61,6 +61,7 @@ outputs:
         - libopencv
         - portaudio
         - qt-main
+        - ffmpeg
 
       run:
         # ycm and eigen are mentioned in the headers so needed when building
