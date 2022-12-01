@@ -14,7 +14,7 @@ source:
     - fixpypy.patch
 
 build:
-  number: 5
+  number: 6
 
 outputs:
   - name: {{ namecxx }}
