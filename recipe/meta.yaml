@@ -14,7 +14,7 @@ source:
     - fixpypy.patch
 
 build:
-  number: 6
+  number: 7
 
 outputs:
   - name: {{ namecxx }}
@@ -99,7 +99,7 @@ outputs:
         - {{ pin_subpackage(namecxx, exact=True) }}
         - python
         - pip
-        - openssl 1.1.1
+        - openssl
 
       run:
         - {{ pin_subpackage(namecxx, exact=True) }}
