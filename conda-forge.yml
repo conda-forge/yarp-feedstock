@@ -2,5 +2,10 @@ github:
   branch_name: main
   tooling_branch_name: main
 conda_forge_output_validation: true
+build_platform:
+  linux_aarch64: linux_64
 conda_build:
   pkg_format: '2'
+provider:
+  linux_aarch64: default
+test: native_and_emulated
