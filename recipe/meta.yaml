@@ -27,8 +27,6 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        # Visual Studio 2017 is not supported
-        - vs2019_win-64  # [win]
         - cmake
         - pkg-config
         - ninja
@@ -53,7 +51,7 @@ outputs:
         - jpeg
         - bash-completion  # [not win]
         - libi2c  # [linux]
-        - ycm-cmake-modules
+        - ycm-cmake-modules 0.14
         - robot-testing-framework
         - xorg-libxfixes  # [linux]
         - libpng
