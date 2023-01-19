@@ -7,6 +7,11 @@ else
   export YARP_COMPILING_ON_LINUX="OFF"
 fi
 
+# Set output of try_run, based on the value of this functions on amd64 builds
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == "1" ]]; then
+  export CMAKE_ARGS="${CMAKE_ARGS} -DYARP_FLT_EXP_DIG=3 -DYARP_DBL_EXP_DIG=4 -DYARP_LDBL_EXP_DIG=5 -DYARP_FLOAT32_IS_IEC559=1 -DYARP_FLOAT64_IS_IEC559=1 -DYARP_FLOAT128_IS_IEC559=1"
+fi
+
 mkdir build
 cd build
 
