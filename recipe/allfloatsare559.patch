@@ -1,0 +1,17 @@
+diff --git a/src/libYARP_conf/src/yarp/conf/numeric.h.in b/src/libYARP_conf/src/yarp/conf/numeric.h.in
+index b2010e6967..b2bd327c05 100644
+--- a/src/libYARP_conf/src/yarp/conf/numeric.h.in
++++ b/src/libYARP_conf/src/yarp/conf/numeric.h.in
+@@ -30,9 +30,9 @@
+ #cmakedefine YARP_LITTLE_ENDIAN
+ 
+ #cmakedefine YARP_HAS_FLOAT128_T
+-#cmakedefine01 YARP_FLOAT32_IS_IEC559
+-#cmakedefine01 YARP_FLOAT64_IS_IEC559
+-#cmakedefine01 YARP_FLOAT128_IS_IEC559
++#define YARP_FLOAT32_IS_IEC559 1
++#define YARP_FLOAT64_IS_IEC559 1
++#define YARP_FLOAT128_IS_IEC559 1
+ 
+ // Ensure that float32_t, float64_t, and float128_t are not defined by some
+ // other header, included before this one.
