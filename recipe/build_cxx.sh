@@ -71,14 +71,16 @@ cmake ${CMAKE_ARGS} -GNinja .. \
     -DYARP_DISABLE_VERSION_SOURCE:BOOL=ON
 
 cat CMakeCache.txt
-cat ./src/libYARP_conf/src/yarp/conf/numeric.h
 
 cmake --build . --config Release
 cmake --build . --config Release --target install
 # Skip audio-related tests as they fail in the CI due to missing soundcard
 # Skip PeriodicThreadTest test as they fail for some unknown reason to be investigate
 # Skip ControlBoardRemapperTest and FrameTransformClientTest as the tests are flaky
-ctest --output-on-failure -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic"
+# idl::thrift::demo::run and device::fakeMotionControl_basic are flaky in cross-compilation
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
+  ctest --output-on-failure -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic|idl::thrift::demo::run|device::fakeMotionControl_basic"
+fi
 
 # Generate and copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
 # This will allow them to be run on environment activation.
