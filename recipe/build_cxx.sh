@@ -71,6 +71,7 @@ cmake ${CMAKE_ARGS} -GNinja .. \
     -DYARP_DISABLE_VERSION_SOURCE:BOOL=ON
 
 cat CMakeCache.txt
+cat ./src/libYARP_conf/src/yarp/conf/numeric.h
 
 cmake --build . --config Release
 cmake --build . --config Release --target install
