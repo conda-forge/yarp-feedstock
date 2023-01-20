@@ -12,6 +12,7 @@ source:
   sha256: bf16e70b26e9b33323e17c4a298499e50299641a7c384904b331f2fb247c84cf
   patches:
     - fixpypy.patch
+    - allfloatsare559.patch
 
 build:
   number: 8
