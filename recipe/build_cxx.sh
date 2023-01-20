@@ -12,6 +12,12 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == "1" ]]; then
   export CMAKE_ARGS="${CMAKE_ARGS} -DYARP_FLT_EXP_DIG:STRING=3 -DYARP_DBL_EXP_DIG:STRING=4 -DYARP_LDBL_EXP_DIG:STRING=5 -DYARP_FLOAT32_IS_IEC559:STRING=1 -DYARP_FLOAT64_IS_IEC559:STRING=1 -DYARP_FLOAT128_IS_IEC559:STRING=1"
 fi
 
+# On osx-arm64, we do not have ACE
+# See https://github.com/conda-forge/ace-feedstock/issues/29
+if [[ "${target_platform}" == "osx-arm64" ]]; then
+  export CMAKE_ARGS="${CMAKE_ARGS} -DSKIP_ACE:BOOL=ON"
+fi
+
 mkdir build
 cd build
 
