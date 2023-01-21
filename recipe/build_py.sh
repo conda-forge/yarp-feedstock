@@ -15,7 +15,7 @@ cmake ${CMAKE_ARGS} -GNinja .. \
     -DYARP_PYTHON_PIP_METADATA_INSTALL:BOOL=ON \
     -DYARP_PYTHON_PIP_METADATA_INSTALLER=conda \
     -DYARP_DISABLE_VERSION_SOURCE:BOOL=ON \
-    -DPython3_INCLUDE_DIR:PATH=$PREFIX/include/`ls $BUILD_PREFIX/include | grep "python\|pypy"`
+    -DPython3_INCLUDE_DIR:PATH=$PREFIX/include/`ls $PREFIX/include | grep "python\|pypy"`
 
 env
 cat CMakeCache.txt 
