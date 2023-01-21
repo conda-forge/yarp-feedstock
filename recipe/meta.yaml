@@ -45,7 +45,7 @@ outputs:
         - {{ cdt('expat') }}  # [linux]
 
       host:
-        - ace  # [osx and arm64]
+        - ace  # [not osx or not arm64]
         - tinyxml
         - eigen
         - sdl
