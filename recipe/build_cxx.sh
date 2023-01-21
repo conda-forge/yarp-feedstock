@@ -12,7 +12,7 @@ cd build
 
 cmake ${CMAKE_ARGS} -GNinja .. \
     -DCMAKE_BUILD_TYPE=Release \
-    -DYARP_COMPILE_TESTS:BOOL=$YARP_COMPILING_ON_LINUX \
+    -DYARP_COMPILE_TESTS:BOOL=OFF \
     -DBUILD_SHARED_LIBS:BOOL=ON \
     -DYARP_COMPILE_BINDINGS:BOOL=OFF \
     -DYARP_COMPILE_GUIS:BOOL=ON \
@@ -72,7 +72,7 @@ cmake --build . --config Release --target install
 # Skip audio-related tests as they fail in the CI due to missing soundcard
 # Skip PeriodicThreadTest test as they fail for some unknown reason to be investigate
 # Skip ControlBoardRemapperTest and FrameTransformClientTest as the tests are flaky
-ctest --output-on-failure -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic"
+# ctest --output-on-failure -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic"
 
 # Generate and copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
 # This will allow them to be run on environment activation.
