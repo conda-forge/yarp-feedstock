@@ -14,6 +14,7 @@ source:
     - fixpypy.patch
     - 2932.patch
     - 2933.patch
+    - 2934.patch
 
 build:
   number: 8
