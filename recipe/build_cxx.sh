@@ -2,9 +2,9 @@
 
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]
 then
-  export YARP_COMPILING_ON_LINUX="OFF"
-else
   export YARP_COMPILING_ON_LINUX="ON"
+else
+  export YARP_COMPILING_ON_LINUX="OFF"
 fi
 
 # Set output of try_run, based on the value of this functions on amd64 builds
