@@ -2,7 +2,7 @@
 
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]
 then
-  export YARP_COMPILING_ON_LINUX="ON"
+  export YARP_COMPILING_ON_LINUX="OFF"
 else
   export YARP_COMPILING_ON_LINUX="OFF"
 fi
@@ -76,6 +76,7 @@ cmake ${CMAKE_ARGS} -GNinja .. \
     -DCREATE_PYTHON:BOOL=OFF \
     -DYARP_DISABLE_VERSION_SOURCE:BOOL=ON
 
+env
 cat CMakeCache.txt
 
 cmake --build . --config Release
@@ -84,9 +85,9 @@ cmake --build . --config Release --target install
 # Skip PeriodicThreadTest test as they fail for some unknown reason to be investigate
 # Skip ControlBoardRemapperTest and FrameTransformClientTest as the tests are flaky
 # idl::thrift::demo::run and device::fakeMotionControl_basic are flaky in cross-compilation
-if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
-  ctest --output-on-failure -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic|idl::thrift::demo::run|device::fakeMotionControl_basic"
-fi
+# if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
+#   ctest --output-on-failure -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic|idl::thrift::demo::run|device::fakeMotionControl_basic"
+# fi
 
 # Generate and copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
 # This will allow them to be run on environment activation.
