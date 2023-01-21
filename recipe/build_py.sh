@@ -15,6 +15,8 @@ cmake ${CMAKE_ARGS} -GNinja .. \
     -DYARP_PYTHON_PIP_METADATA_INSTALL:BOOL=ON \
     -DYARP_PYTHON_PIP_METADATA_INSTALLER=conda \
     -DYARP_DISABLE_VERSION_SOURCE:BOOL=ON
+env
+cat CMakeCache.txt 
 
 cmake --build . --config Release
 cmake --build . --config Release --target install
