@@ -12,9 +12,12 @@ source:
   sha256: bf16e70b26e9b33323e17c4a298499e50299641a7c384904b331f2fb247c84cf
   patches:
     - fixpypy.patch
+    - 2932.patch
+    - 2933.patch
+    - 2934.patch
 
 build:
-  number: 7
+  number: 8
 
 outputs:
   - name: {{ namecxx }}
@@ -27,8 +30,6 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        # Visual Studio 2017 is not supported
-        - vs2019_win-64  # [win]
         - cmake
         - pkg-config
         - ninja
@@ -45,7 +46,7 @@ outputs:
         - {{ cdt('expat') }}  # [linux]
 
       host:
-        - ace
+        - ace  # [not osx or not arm64]
         - tinyxml
         - eigen
         - sdl
@@ -53,7 +54,7 @@ outputs:
         - jpeg
         - bash-completion  # [not win]
         - libi2c  # [linux]
-        - ycm-cmake-modules
+        - ycm-cmake-modules 0.14
         - robot-testing-framework
         - xorg-libxfixes  # [linux]
         - libpng

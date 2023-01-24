@@ -1,0 +1,158 @@
+diff --git a/src/libYARP_os/src/yarp/os/Os.cpp b/src/libYARP_os/src/yarp/os/Os.cpp
+index f74ef565a9..dab37aeb4d 100644
+--- a/src/libYARP_os/src/yarp/os/Os.cpp
++++ b/src/libYARP_os/src/yarp/os/Os.cpp
+@@ -160,7 +160,7 @@ int yarp::os::fork()
+ {
+ #    if defined(YARP_HAS_ACE)
+     pid_t pid = ACE_OS::fork();
+-#    elif defined(__unix__)
++#    elif defined(__unix__) || defined(__APPLE__)
+     pid_t pid = ::fork();
+ #    else
+     YARP_COMPILER_ERROR(Cannot implement fork on this platform)
+diff --git a/src/libYARP_os/src/yarp/os/impl/NameConfig.cpp b/src/libYARP_os/src/yarp/os/impl/NameConfig.cpp
+index 2c540c7b3b..e7e9124126 100644
+--- a/src/libYARP_os/src/yarp/os/impl/NameConfig.cpp
++++ b/src/libYARP_os/src/yarp/os/impl/NameConfig.cpp
+@@ -35,7 +35,7 @@
+ #    ifdef main
+ #        undef main
+ #    endif
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+ #    include <arpa/inet.h>
+ #    include <cstring>
+ #    include <sys/socket.h>
+@@ -334,7 +334,7 @@ bool NameConfig::isLocalName(const std::string& name)
+         }
+         delete[] ips;
+     }
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+     /**
+      * If this does not work properly, use a more sophisticated way
+      * instead of just gethostname.
+diff --git a/src/libYARP_os/src/yarp/os/impl/SocketTwoWayStream.cpp b/src/libYARP_os/src/yarp/os/impl/SocketTwoWayStream.cpp
+index 7059beb080..a4fff24682 100644
+--- a/src/libYARP_os/src/yarp/os/impl/SocketTwoWayStream.cpp
++++ b/src/libYARP_os/src/yarp/os/impl/SocketTwoWayStream.cpp
+@@ -20,7 +20,7 @@
+ #    ifdef main
+ #        undef main
+ #    endif
+-#elif (__unix__)
++#elif defined(__unix__) || defined(__APPLE__) 
+ #    include <netinet/tcp.h>
+ #endif
+ 
+diff --git a/src/libYARP_os/src/yarp/os/impl/TcpAcceptor.h b/src/libYARP_os/src/yarp/os/impl/TcpAcceptor.h
+index 0d0dd8451c..20f318c191 100644
+--- a/src/libYARP_os/src/yarp/os/impl/TcpAcceptor.h
++++ b/src/libYARP_os/src/yarp/os/impl/TcpAcceptor.h
+@@ -13,7 +13,7 @@
+ #    ifdef main
+ #        undef main
+ #    endif
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+ #    include <yarp/os/impl/posix/TcpAcceptor.h>
+ #else
+ YARP_COMPILER_ERROR(Cannot implement TcpAcceptor on this platform)
+@@ -23,7 +23,7 @@ namespace yarp::os::impl {
+ 
+ #ifdef YARP_HAS_ACE
+ typedef ACE_SOCK_Acceptor TcpAcceptor;
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+ typedef yarp::os::impl::posix::TcpAcceptor TcpAcceptor;
+ #endif
+ 
+diff --git a/src/libYARP_os/src/yarp/os/impl/TcpConnector.h b/src/libYARP_os/src/yarp/os/impl/TcpConnector.h
+index 5bd6e17499..151e2fcab0 100644
+--- a/src/libYARP_os/src/yarp/os/impl/TcpConnector.h
++++ b/src/libYARP_os/src/yarp/os/impl/TcpConnector.h
+@@ -13,7 +13,7 @@
+ #    ifdef main
+ #        undef main
+ #    endif
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+ #    include <yarp/os/impl/posix/TcpConnector.h>
+ #else
+ YARP_COMPILER_ERROR(Cannot implement TcpConnector on this platform)
+@@ -23,7 +23,7 @@ namespace yarp::os::impl {
+ 
+ #ifdef YARP_HAS_ACE
+ typedef ACE_SOCK_Connector TcpConnector;
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+ typedef yarp::os::impl::posix::TcpConnector TcpConnector;
+ #endif
+ 
+diff --git a/src/libYARP_os/src/yarp/os/impl/TcpStream.h b/src/libYARP_os/src/yarp/os/impl/TcpStream.h
+index d28907bf45..c352c4822c 100644
+--- a/src/libYARP_os/src/yarp/os/impl/TcpStream.h
++++ b/src/libYARP_os/src/yarp/os/impl/TcpStream.h
+@@ -13,7 +13,7 @@
+ #    ifdef main
+ #        undef main
+ #    endif
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+ #    include <yarp/os/impl/posix/TcpStream.h>
+ #else
+ YARP_COMPILER_ERROR(Cannot implement TcpStream on this platform)
+@@ -23,7 +23,7 @@ namespace yarp::os::impl {
+ 
+ #ifdef YARP_HAS_ACE
+ typedef ACE_SOCK_Stream TcpStream;
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+ typedef yarp::os::impl::posix::TcpStream TcpStream;
+ #endif
+ 
+diff --git a/src/libYARP_os/src/yarp/os/impl/ThreadImpl.cpp b/src/libYARP_os/src/yarp/os/impl/ThreadImpl.cpp
+index 51771f8c96..8d1e2d1b5a 100644
+--- a/src/libYARP_os/src/yarp/os/impl/ThreadImpl.cpp
++++ b/src/libYARP_os/src/yarp/os/impl/ThreadImpl.cpp
+@@ -258,7 +258,7 @@ int ThreadImpl::setPriority(int priority, int policy)
+             return ACE_Thread::setprio(thread.native_handle(), priority, policy);
+         }
+         yCError(THREADIMPL, "Cannot set priority without ACE");
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+         if (std::is_same<std::thread::native_handle_type, pthread_t>::value) {
+             struct sched_param thread_param;
+             thread_param.sched_priority = priority;
+@@ -284,7 +284,7 @@ int ThreadImpl::getPriority()
+         } else {
+             yCError(THREADIMPL, "Cannot get priority without ACE");
+         }
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+         if (std::is_same<std::thread::native_handle_type, pthread_t>::value) {
+             struct sched_param thread_param;
+             int policy;
+@@ -312,7 +312,7 @@ int ThreadImpl::getPolicy()
+         } else {
+             yCError(THREADIMPL, "Cannot get scheduling policy without ACE");
+         }
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+         if (std::is_same<std::thread::native_handle_type, pthread_t>::value) {
+             struct sched_param thread_param;
+             if (pthread_getschedparam(thread.native_handle(), &policy, &thread_param) != 0) {
+diff --git a/src/yarpidl_rosmsg/src/RosType.cpp b/src/yarpidl_rosmsg/src/RosType.cpp
+index 401e1bb9b1..66f5e25adf 100644
+--- a/src/yarpidl_rosmsg/src/RosType.cpp
++++ b/src/yarpidl_rosmsg/src/RosType.cpp
+@@ -618,7 +618,7 @@ bool RosTypeSearch::fetchFromRos(const std::string& target_file,
+ # else
+     using ACE_OS::execlp;
+ # endif
+-#elif defined(__unix__)
++#elif defined(__unix__) || defined(__APPLE__)
+     using ::fork;
+     using ::execlp;
+ #endif

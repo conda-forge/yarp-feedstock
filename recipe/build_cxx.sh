@@ -7,6 +7,17 @@ else
   export YARP_COMPILING_ON_LINUX="OFF"
 fi
 
+# Set output of try_run, based on the value of this functions on amd64 builds
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == "1" ]]; then
+  export CMAKE_ARGS="${CMAKE_ARGS} -DYARP_FLT_EXP_DIG:STRING=3 -DYARP_DBL_EXP_DIG:STRING=4 -DYARP_LDBL_EXP_DIG:STRING=5 -DYARP_FLOAT32_IS_IEC559:STRING=1 -DYARP_FLOAT64_IS_IEC559:STRING=1 -DYARP_FLOAT128_IS_IEC559:STRING=1"
+fi
+
+# On osx-arm64, we do not have ACE
+# See https://github.com/conda-forge/ace-feedstock/issues/29
+if [[ "${target_platform}" == "osx-arm64" ]]; then
+  export CMAKE_ARGS="${CMAKE_ARGS} -DSKIP_ACE:BOOL=ON"
+fi
+
 mkdir build
 cd build
 
@@ -65,6 +76,7 @@ cmake ${CMAKE_ARGS} -GNinja .. \
     -DCREATE_PYTHON:BOOL=OFF \
     -DYARP_DISABLE_VERSION_SOURCE:BOOL=ON
 
+env
 cat CMakeCache.txt
 
 cmake --build . --config Release
@@ -72,7 +84,9 @@ cmake --build . --config Release --target install
 # Skip audio-related tests as they fail in the CI due to missing soundcard
 # Skip PeriodicThreadTest test as they fail for some unknown reason to be investigate
 # Skip ControlBoardRemapperTest and FrameTransformClientTest as the tests are flaky
-ctest --output-on-failure -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic"
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
+  ctest --output-on-failure -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic"
+fi
 
 # Generate and copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
 # This will allow them to be run on environment activation.
