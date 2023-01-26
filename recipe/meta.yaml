@@ -17,7 +17,7 @@ source:
     - 2934.patch
 
 build:
-  number: 8
+  number: 9
 
 outputs:
   - name: {{ namecxx }}
