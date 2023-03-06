@@ -12,9 +12,6 @@ source:
   sha256: 51d8c6bc6d9c3b5e679f2559c0be39d7706b0a3fa1edbd764b9230cb9d2c25ae
   patches:
     - fixpypy.patch
-    - 2932.patch
-    - 2933.patch
-    - 2934.patch
 
 build:
   number: 0
