@@ -41,6 +41,7 @@ outputs:
         - {{ cdt('libxfixes') }}  # [linux]
         - {{ cdt('libxau') }}  # [linux]
         - {{ cdt('expat') }}  # [linux]
+        - ycm-cmake-modules
 
       host:
         - ace  # [not osx or not arm64]
@@ -51,7 +52,6 @@ outputs:
         - jpeg
         - bash-completion  # [not win]
         - libi2c  # [linux]
-        - ycm-cmake-modules 0.14
         - robot-testing-framework
         - xorg-libxfixes  # [linux]
         - libpng
