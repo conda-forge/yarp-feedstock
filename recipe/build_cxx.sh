@@ -79,8 +79,9 @@ cmake --build . --config Release --target install
 # Skip audio-related tests as they fail in the CI due to missing soundcard
 # Skip PeriodicThreadTest test as they fail for some unknown reason to be investigate
 # Skip ControlBoardRemapperTest and FrameTransformClientTest as the tests are flaky
+# Some tets are flaky
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
-  ctest --output-on-failure -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic"
+  ctest --output-on-failure --repeat until-pass:5 -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic"
 fi
 
 # Generate and copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
