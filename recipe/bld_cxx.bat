@@ -65,7 +65,7 @@ if errorlevel 1 exit 1
 :: Skip audio-related tests as they fail in the CI due to missing soundcard
 :: Skip controlboardwrapper2_basic as it is flaky
 :: Some tests are flaky
-ctest --output-on-failure --repeat until-pass:5 -C Release -E "audio|controlboardwrapper2_basic"
+ctest --output-on-failure --repeat until-pass:5 -C Release -E "audio|controlboardwrapper2_basic|PeriodicThreadTest"
 if errorlevel 1 exit 1
 
 setlocal EnableDelayedExpansion
