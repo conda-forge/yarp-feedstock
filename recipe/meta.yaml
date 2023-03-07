@@ -1,7 +1,7 @@
 {% set name = "yarp" %}
 {% set namecxx = "yarp-cxx" %}
 {% set namepython = "yarp-python" %}
-{% set version = "3.7.2" %}
+{% set version = "3.8.0" %}
 
 package:
   name: {{ name }}
@@ -9,15 +9,12 @@ package:
 
 source:
   url: https://github.com/robotology/yarp/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: bf16e70b26e9b33323e17c4a298499e50299641a7c384904b331f2fb247c84cf
+  sha256: 51d8c6bc6d9c3b5e679f2559c0be39d7706b0a3fa1edbd764b9230cb9d2c25ae
   patches:
     - fixpypy.patch
-    - 2932.patch
-    - 2933.patch
-    - 2934.patch
 
 build:
-  number: 9
+  number: 0
 
 outputs:
   - name: {{ namecxx }}
@@ -44,6 +41,7 @@ outputs:
         - {{ cdt('libxfixes') }}  # [linux]
         - {{ cdt('libxau') }}  # [linux]
         - {{ cdt('expat') }}  # [linux]
+        - ycm-cmake-modules
 
       host:
         - ace  # [not osx or not arm64]
@@ -54,7 +52,6 @@ outputs:
         - jpeg
         - bash-completion  # [not win]
         - libi2c  # [linux]
-        - ycm-cmake-modules 0.14
         - robot-testing-framework
         - xorg-libxfixes  # [linux]
         - libpng

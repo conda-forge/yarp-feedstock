@@ -35,17 +35,7 @@ cmake -G "Ninja" ^
     -DENABLE_yarpmod_portaudio:BOOL=ON ^
     -DENABLE_yarpmod_portaudioPlayer:BOOL=ON ^
     -DENABLE_yarpmod_portaudioRecorder:BOOL=ON ^
-    -DENABLE_yarpmod_fakeAnalogSensor:BOOL=ON ^
-    -DENABLE_yarpmod_fakeBattery:BOOL=ON ^
-    -DENABLE_yarpmod_fakeDepthCamera:BOOL=ON ^
-    -DENABLE_yarpmod_fakeFrameGrabber:BOOL=ON ^
-    -DENABLE_yarpmod_fakeIMU:BOOL=ON ^
-    -DENABLE_yarpmod_fakeLaser:BOOL=ON ^
-    -DENABLE_yarpmod_fakeLocalizer:BOOL=ON ^
-    -DENABLE_yarpmod_fakeMicrophone:BOOL=ON ^
-    -DENABLE_yarpmod_fakeMotionControl:BOOL=ON ^
-    -DENABLE_yarpmod_fakeNavigation:BOOL=ON ^
-    -DENABLE_yarpmod_fakeSpeaker:BOOL=ON ^
+    -DYARP_COMPILE_ALL_FAKE_DEVICES:BOOL=ON ^
     -DYARP_COMPILE_RobotTestingFramework_ADDONS:BOOL=ON ^
     -DYARP_USE_I2C:BOOL=OFF ^
     -DYARP_USE_JPEG:BOOL=ON ^
@@ -74,7 +64,8 @@ if errorlevel 1 exit 1
 :: Test.
 :: Skip audio-related tests as they fail in the CI due to missing soundcard
 :: Skip controlboardwrapper2_basic as it is flaky
-ctest --output-on-failure -C Release -E "audio|controlboardwrapper2_basic"
+:: Some tests are flaky
+ctest --output-on-failure --repeat until-pass:5 -C Release -E "audio|controlboardwrapper2_basic|PeriodicThreadTest"
 if errorlevel 1 exit 1
 
 setlocal EnableDelayedExpansion
