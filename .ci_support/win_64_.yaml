@@ -8,8 +8,8 @@ cxx_compiler:
 - vs2019
 ffmpeg:
 - '5'
-jpeg:
-- '9'
+libjpeg_turbo:
+- 2.1.5
 libopencv:
 - 4.7.0
 libpng:
