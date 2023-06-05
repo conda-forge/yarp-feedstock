@@ -1,7 +1,7 @@
 {% set name = "yarp" %}
 {% set namecxx = "yarp-cxx" %}
 {% set namepython = "yarp-python" %}
-{% set version = "3.8.0" %}
+{% set version = "3.8.1" %}
 
 package:
   name: {{ name }}
@@ -9,12 +9,12 @@ package:
 
 source:
   url: https://github.com/robotology/yarp/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 51d8c6bc6d9c3b5e679f2559c0be39d7706b0a3fa1edbd764b9230cb9d2c25ae
+  sha256: 2fafadcd2a965d3c0e4d683cd2748277565c67db6a4acd4a435b4122cba2d749
   patches:
     - fixpypy.patch
 
 build:
-  number: 2
+  number: 0
 
 outputs:
   - name: {{ namecxx }}
