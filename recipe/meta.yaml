@@ -12,9 +12,10 @@ source:
   sha256: 2fafadcd2a965d3c0e4d683cd2748277565c67db6a4acd4a435b4122cba2d749
   patches:
     - fixpypy.patch
+    - 2983.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - name: {{ namecxx }}
