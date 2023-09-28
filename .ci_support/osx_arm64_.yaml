@@ -17,7 +17,7 @@ ffmpeg:
 libjpeg_turbo:
 - 2.1.5
 libopencv:
-- 4.8.0
+- 4.8.1
 libpng:
 - '1.6'
 macos_machine:
