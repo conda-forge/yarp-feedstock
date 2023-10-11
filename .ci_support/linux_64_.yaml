@@ -17,7 +17,7 @@ docker_image:
 ffmpeg:
 - '6'
 libjpeg_turbo:
-- 2.1.5
+- '3'
 libopencv:
 - 4.8.1
 libpng:
