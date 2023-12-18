@@ -15,7 +15,7 @@ source:
     - 2983.patch
 
 build:
-  number: 7
+  number: 0
 
 outputs:
   - name: {{ namecxx }}
