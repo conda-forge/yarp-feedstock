@@ -3,6 +3,19 @@ About yarp-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/yarp-feedstock/blob/main/LICENSE.txt)
 
+
+About yarp
+----------
+
+Home: https://github.com/robotology/yarp
+
+Package license: BSD-3-Clause AND MIT AND GPL-3.0-or-later
+
+Summary: YARP is a library and toolkit for communication and device interfaces, used on everything from humanoids to embedded devices.
+
+About yarp-cxx
+--------------
+
 Home: https://github.com/robotology/yarp
 
 Package license: BSD-3-Clause AND MIT AND GPL-3.0-or-later
@@ -81,6 +94,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libyarp-green.svg)](https://anaconda.org/conda-forge/libyarp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libyarp.svg)](https://anaconda.org/conda-forge/libyarp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libyarp.svg)](https://anaconda.org/conda-forge/libyarp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libyarp.svg)](https://anaconda.org/conda-forge/libyarp) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-yarp-green.svg)](https://anaconda.org/conda-forge/yarp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/yarp.svg)](https://anaconda.org/conda-forge/yarp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/yarp.svg)](https://anaconda.org/conda-forge/yarp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/yarp.svg)](https://anaconda.org/conda-forge/yarp) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-yarp--cxx-green.svg)](https://anaconda.org/conda-forge/yarp-cxx) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/yarp-cxx.svg)](https://anaconda.org/conda-forge/yarp-cxx) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/yarp-cxx.svg)](https://anaconda.org/conda-forge/yarp-cxx) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/yarp-cxx.svg)](https://anaconda.org/conda-forge/yarp-cxx) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-yarp--python-green.svg)](https://anaconda.org/conda-forge/yarp-python) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/yarp-python.svg)](https://anaconda.org/conda-forge/yarp-python) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/yarp-python.svg)](https://anaconda.org/conda-forge/yarp-python) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/yarp-python.svg)](https://anaconda.org/conda-forge/yarp-python) |
@@ -95,41 +109,41 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `yarp, yarp-cxx, yarp-python` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libyarp, yarp, yarp-cxx, yarp-python` can be installed with `conda`:
 
 ```
-conda install yarp yarp-cxx yarp-python
-```
-
-or with `mamba`:
-
-```
-mamba install yarp yarp-cxx yarp-python
-```
-
-It is possible to list all of the versions of `yarp` available on your platform with `conda`:
-
-```
-conda search yarp --channel conda-forge
+conda install libyarp yarp yarp-cxx yarp-python
 ```
 
 or with `mamba`:
 
 ```
-mamba search yarp --channel conda-forge
+mamba install libyarp yarp yarp-cxx yarp-python
+```
+
+It is possible to list all of the versions of `libyarp` available on your platform with `conda`:
+
+```
+conda search libyarp --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search libyarp --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search yarp --channel conda-forge
+mamba repoquery search libyarp --channel conda-forge
 
-# List packages depending on `yarp`:
-mamba repoquery whoneeds yarp --channel conda-forge
+# List packages depending on `libyarp`:
+mamba repoquery whoneeds libyarp --channel conda-forge
 
-# List dependencies of `yarp`:
-mamba repoquery depends yarp --channel conda-forge
+# List dependencies of `libyarp`:
+mamba repoquery depends libyarp --channel conda-forge
 ```
 
 
@@ -151,7 +165,7 @@ available continuous integration services. Thanks to the awesome service provide
 [CircleCI](https://circleci.com/), [AppVeyor](https://www.appveyor.com/),
 [Drone](https://cloud.drone.io/welcome), and [TravisCI](https://travis-ci.com/)
 it is possible to build and upload installable packages to the
-[conda-forge](https://anaconda.org/conda-forge) [Anaconda-Cloud](https://anaconda.org/)
+[conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.
 
 To manage the continuous integration and simplify feedstock maintenance
