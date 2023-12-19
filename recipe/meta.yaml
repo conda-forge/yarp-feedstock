@@ -1,7 +1,7 @@
 {% set name = "yarp" %}
-{% set namecxx = "yarp-cxx" %}
+{% set namecxx = "libyarp" %}
 {% set namepython = "yarp-python" %}
-{% set version = "3.8.1" %}
+{% set version = "3.9.0" %}
 
 package:
   name: {{ name }}
@@ -9,13 +9,13 @@ package:
 
 source:
   url: https://github.com/robotology/yarp/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 2fafadcd2a965d3c0e4d683cd2748277565c67db6a4acd4a435b4122cba2d749
+  sha256: 3691c12a522e246ea506866df99a30b0d2c50d5c5efde602e7e207cd5dd7a4e2
   patches:
     - fixpypy.patch
     - 2983.patch
 
 build:
-  number: 7
+  number: 0
 
 outputs:
   - name: {{ namecxx }}
@@ -66,7 +66,7 @@ outputs:
 
       run:
         # ycm and eigen are mentioned in the headers so needed when building
-        # against yarp-cxx
+        # against libyarp
         - ycm-cmake-modules
         - eigen
 
@@ -124,6 +124,17 @@ outputs:
     test:
       imports:
         - yarp
+
+  - name: yarp-cxx
+    build:
+      run_exports:
+        - {{ pin_subpackage(namecxx, max_pin='x.x.x') }}
+    requirements:
+      run:
+        - {{ pin_subpackage(namecxx, exact=True) }}
+    test:
+      commands:
+        - yarp help
 
 about:
   home: https://github.com/robotology/yarp
