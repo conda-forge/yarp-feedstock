@@ -89,7 +89,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - swig
+        - swig 4.1.1
         - ninja
         - cmake
         - python                                 # [build_platform != target_platform]
