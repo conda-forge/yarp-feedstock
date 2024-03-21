@@ -13,6 +13,7 @@ source:
   patches:
     - fixpypy.patch
     - 2983.patch
+    - 3097.patch
 
 build:
   number: 1
