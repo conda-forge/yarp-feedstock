@@ -2,8 +2,12 @@ c_compiler:
 - gcc
 c_compiler_version:
 - '12'
+c_stdlib:
+- sysroot
+c_stdlib_version:
+- '2.12'
 cdt_name:
-- cos7
+- cos6
 channel_sources:
 - conda-forge
 channel_targets:
@@ -15,7 +19,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 ffmpeg:
-- '6'
+- '7'
 libjpeg_turbo:
 - '3'
 libopencv:
@@ -40,7 +44,9 @@ qt_main:
 sqlite:
 - '3'
 target_platform:
-- linux-ppc64le
+- linux-64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+- - c_stdlib_version
+  - cdt_name
