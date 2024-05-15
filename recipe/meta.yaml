@@ -15,6 +15,7 @@ source:
     - 2983.patch
     - 3097.patch
     - 3109.patch
+    - 3109bis.patch
 
 build:
   number: 3
