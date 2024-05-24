@@ -14,9 +14,11 @@ source:
     - fixpypy.patch
     - 2983.patch
     - 3097.patch
+    - 3109.patch
+    - 3109bis.patch
 
 build:
-  number: 2
+  number: 3
 
 outputs:
   - name: {{ namecxx }}
@@ -28,6 +30,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - cmake
         - pkg-config
@@ -89,6 +92,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
         - swig 4.1.1
         - ninja

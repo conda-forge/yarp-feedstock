@@ -1,0 +1,27 @@
+From cddab60509977e952a5dd87ce67640eb56ce9915 Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio.traversaro@iit.it>
+Date: Wed, 15 May 2024 12:15:55 +0200
+Subject: [PATCH] ffmpeg 7 fix
+
+---
+ .../image_compression_ffmpeg/ffmpegPortmonitor.cpp           | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp b/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp
+index 2b24838ce6a..a3599167518 100644
+--- a/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp
++++ b/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp
+@@ -406,7 +406,12 @@ int FfmpegMonitorObject::compress(Image* img, AVPacket *pkt) {
+     }
+ 
+     // Set presentation timestamp
++#if LIBAVCODEC_VERSION_MAJOR >= 61
++    // See https://github.com/FFmpeg/FFmpeg/commit/6b6f7db81932f94876ff4bcfd2da0582b8ab897e
++    endFrame->pts = codecContext->frame_num;
++#else
+     endFrame->pts = codecContext->frame_number;
++#endif
+ 
+     // Send image frame to codec
+     ret = avcodec_send_frame(codecContext, endFrame);
+
