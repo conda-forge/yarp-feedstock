@@ -18,7 +18,7 @@ source:
     - 3109bis.patch
 
 build:
-  number: 4
+  number: 5
 
 outputs:
   - name: {{ namecxx }}
@@ -49,7 +49,7 @@ outputs:
         - ycm-cmake-modules
 
       host:
-        - ace  # [not osx or not arm64]
+        - ace
         - tinyxml
         - eigen
         - sdl

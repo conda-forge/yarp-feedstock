@@ -17,12 +17,6 @@ if [[ "${target_platform}" == osx-* ]]; then
     CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 fi
 
-# On osx-arm64, we do not have ACE
-# See https://github.com/conda-forge/ace-feedstock/issues/29
-if [[ "${target_platform}" == "osx-arm64" ]]; then
-  export CMAKE_ARGS="${CMAKE_ARGS} -DSKIP_ACE:BOOL=ON"
-fi
-
 mkdir build
 cd build
 
