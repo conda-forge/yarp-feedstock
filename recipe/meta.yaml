@@ -65,7 +65,7 @@ outputs:
         - libedit  # [not win]
         - libopencv
         - portaudio
-        - qt6-main
+        - qt6-main  # [not ppc64le]
         - ffmpeg
 
       run:
