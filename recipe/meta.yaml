@@ -18,7 +18,7 @@ source:
     - 3109bis.patch
 
 build:
-  number: 5
+  number: 6
 
 outputs:
   - name: {{ namecxx }}
@@ -65,7 +65,7 @@ outputs:
         - libedit  # [not win]
         - libopencv
         - portaudio
-        - qt-main
+        - qt6-main
         - ffmpeg
 
       run:
