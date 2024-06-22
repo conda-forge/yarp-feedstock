@@ -43,8 +43,8 @@ python:
 - 3.8.* *_cpython
 - 3.9.* *_73_pypy
 - 3.9.* *_cpython
-qt_main:
-- '5.15'
+qt6_main:
+- '6.7'
 sqlite:
 - '3'
 target_platform:
