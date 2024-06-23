@@ -85,6 +85,12 @@ outputs:
         - if not exist %PREFIX%\\Library\\lib\\YARP_os.lib exit 1  # [win]
         - if not exist %PREFIX%\\Library\\bin\\YARP_os.dll exit 1  # [win]
         - if not exist %PREFIX%\\Library\\lib\\cmake\\YARP_os\\YARP_osConfig.cmake exit 1  # [win]
+        - yarpmanager --help          # [not ppc64le]
+        - yarprobotinterface --help   # [not ppc64le]
+        - yarpaudiocontrolgui --help  # [not ppc64le]
+        - yarpmobilebasegui --help    # [not ppc64le]
+        - yarpmotorgui --help         # [not ppc64le]
+        - yarpscope --help            # [not ppc64le]
 
   - name: {{ namepython }}
     script: build_py.sh  # [unix]
