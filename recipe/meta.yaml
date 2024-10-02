@@ -36,9 +36,7 @@ outputs:
         - pkg-config
         - ninja
         - multisheller
-        - libgl-devel  # [linux]
         - ycm-cmake-modules
-
       host:
         - ace
         - tinyxml
@@ -49,6 +47,7 @@ outputs:
         - bash-completion  # [not win]
         - libi2c  # [linux]
         - robot-testing-framework
+        - libgl-devel  # [linux]
         - xorg-libxfixes  # [linux]
         - libpng
         - libzlib
