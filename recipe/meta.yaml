@@ -36,16 +36,7 @@ outputs:
         - pkg-config
         - ninja
         - multisheller
-        - {{ cdt('mesa-libgl-devel') }}  # [linux]
-        - {{ cdt('mesa-dri-drivers') }}  # [linux]
-        - {{ cdt('libselinux') }}  # [linux]
-        - {{ cdt('libxdamage') }}  # [linux]
-        - {{ cdt('libxxf86vm') }}  # [linux]
-        - {{ cdt('libxext') }}  # [linux]
-        - {{ cdt('libxcb') }}  # [linux]
-        - {{ cdt('libxfixes') }}  # [linux]
-        - {{ cdt('libxau') }}  # [linux]
-        - {{ cdt('expat') }}  # [linux]
+        - libgl-devel  # [linux]
         - ycm-cmake-modules
 
       host:
