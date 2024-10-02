@@ -18,7 +18,7 @@ source:
     - 3109bis.patch
 
 build:
-  number: 5
+  number: 6
 
 outputs:
   - name: {{ namecxx }}
@@ -36,18 +36,7 @@ outputs:
         - pkg-config
         - ninja
         - multisheller
-        - {{ cdt('mesa-libgl-devel') }}  # [linux]
-        - {{ cdt('mesa-dri-drivers') }}  # [linux]
-        - {{ cdt('libselinux') }}  # [linux]
-        - {{ cdt('libxdamage') }}  # [linux]
-        - {{ cdt('libxxf86vm') }}  # [linux]
-        - {{ cdt('libxext') }}  # [linux]
-        - {{ cdt('libxcb') }}  # [linux]
-        - {{ cdt('libxfixes') }}  # [linux]
-        - {{ cdt('libxau') }}  # [linux]
-        - {{ cdt('expat') }}  # [linux]
         - ycm-cmake-modules
-
       host:
         - ace
         - tinyxml
@@ -58,6 +47,7 @@ outputs:
         - bash-completion  # [not win]
         - libi2c  # [linux]
         - robot-testing-framework
+        - libgl-devel  # [linux]
         - xorg-libxfixes  # [linux]
         - libpng
         - libzlib
@@ -102,7 +92,6 @@ outputs:
       host:
         - {{ pin_subpackage(namecxx, exact=True) }}
         - python
-        - pip
         - openssl
 
       run:
