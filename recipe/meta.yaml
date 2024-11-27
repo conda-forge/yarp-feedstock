@@ -1,7 +1,7 @@
 {% set name = "yarp" %}
 {% set namecxx = "libyarp" %}
 {% set namepython = "yarp-python" %}
-{% set version = "3.9.0" %}
+{% set version = "3.9.1" %}
 
 package:
   name: {{ name }}
@@ -13,12 +13,11 @@ source:
   patches:
     - fixpypy.patch
     - 2983.patch
-    - 3097.patch
     - 3109.patch
     - 3109bis.patch
 
 build:
-  number: 6
+  number: 0
 
 outputs:
   - name: {{ namecxx }}
@@ -84,7 +83,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
-        - swig 4.1.1
+        - swig
         - ninja
         - cmake
         - python                                 # [build_platform != target_platform]
