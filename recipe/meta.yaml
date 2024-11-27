@@ -9,9 +9,8 @@ package:
 
 source:
   url: https://github.com/robotology/yarp/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 3691c12a522e246ea506866df99a30b0d2c50d5c5efde602e7e207cd5dd7a4e2
+  sha256: 1e8b493899e2b48fd9e64461e5e567e7f3f7c89c19941eebf6aec05f62b37e0f
   patches:
-    - fixpypy.patch
     - 2983.patch
     - 3109.patch
     - 3109bis.patch
