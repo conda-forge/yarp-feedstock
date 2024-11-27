@@ -36,6 +36,8 @@ outputs:
         - ninja
         - multisheller
         - ycm-cmake-modules
+        - bison  # [not win]
+        - flex  # [not win]
       host:
         - ace
         - tinyxml
