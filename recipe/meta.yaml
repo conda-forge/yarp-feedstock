@@ -135,7 +135,6 @@ about:
     - COPYING
     - extern/thrift/LICENSES/BSD-3-Clause.txt
     - extern/dirent/dirent/LICENSE
-    - extern/xmlrpcpp/xmlrpcpp/COPYING
   summary: YARP is a library and toolkit for communication and device interfaces, used on everything from humanoids to embedded devices.
 
 
