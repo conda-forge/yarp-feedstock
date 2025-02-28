@@ -19,7 +19,7 @@ libopencv:
 libpng:
 - '1.6'
 libyarp:
-- 3.10.1
+- 3.11.1
 openssl:
 - '3'
 pin_run_as_build:
