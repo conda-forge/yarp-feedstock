@@ -14,7 +14,7 @@ source:
     - 2983.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - name: {{ namecxx }}
@@ -48,7 +48,7 @@ outputs:
         - libgl-devel  # [linux]
         - xorg-libxfixes  # [linux]
         - libpng
-        - libzlib
+        - zlib
         - soxr
         - libedit  # [not win]
         - libopencv
@@ -73,6 +73,10 @@ outputs:
         - if not exist %PREFIX%\\Library\\lib\\YARP_os.lib exit 1  # [win]
         - if not exist %PREFIX%\\Library\\bin\\YARP_os.dll exit 1  # [win]
         - if not exist %PREFIX%\\Library\\lib\\cmake\\YARP_os\\YARP_osConfig.cmake exit 1  # [win]
+        # Regression test for https://github.com/conda-forge/yarp-feedstock/issues/66
+        - test -f ${PREFIX}/lib/yarp/yarp_pm_depthimage_compression_zlib.so  # [not win]
+        - if not exist %PREFIX%\\Library\\lib\\yarp\\yarp_pm_depthimage_compression_zlib.dll exit 1  # [win]
+
 
   - name: {{ namepython }}
     script: build_py.sh  # [unix]
