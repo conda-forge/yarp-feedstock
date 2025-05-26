@@ -66,10 +66,13 @@ outputs:
       commands:
         - yarp help
         - test -f ${PREFIX}/include/yarp/os/all.h  # [not win]
+        - test -f ${PREFIX}/include/yarp/cv/Cv.h  # [not win]
         - test -f ${PREFIX}/lib/libYARP_os.so  # [linux]
         - test -f ${PREFIX}/lib/libYARP_os.dylib  # [osx]
         - test -f ${PREFIX}/lib/cmake/YARP_os/YARP_osConfig.cmake  # [not win]
         - if not exist %PREFIX%\\Library\\include\\yarp\\os\\all.h exit 1  # [win]
+        # Regression test for https://github.com/conda-forge/yarp-feedstock/issues/69
+        - if not exist %PREFIX%\\Library\\include\\yarp\\cv\\Cv.h exit 1  # [win]
         - if not exist %PREFIX%\\Library\\lib\\YARP_os.lib exit 1  # [win]
         - if not exist %PREFIX%\\Library\\bin\\YARP_os.dll exit 1  # [win]
         - if not exist %PREFIX%\\Library\\lib\\cmake\\YARP_os\\YARP_osConfig.cmake exit 1  # [win]
