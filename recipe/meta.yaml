@@ -52,6 +52,9 @@ outputs:
         - soxr
         - libedit  # [not win]
         - libopencv
+        # Temporary workaround to avoid to update to vs2022, 
+        # see https://github.com/conda-forge/yarp-feedstock/pull/70#issuecomment-2910021339
+        - libopencv 4.11.0=*_6
         - portaudio
         - qt-main
         - ffmpeg
