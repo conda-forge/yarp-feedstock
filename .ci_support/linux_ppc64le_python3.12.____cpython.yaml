@@ -1,5 +1,5 @@
 ace:
-- 8.0.2
+- 8.0.4
 c_compiler:
 - gcc
 c_compiler_version:
@@ -29,7 +29,7 @@ libopencv:
 libpng:
 - '1.6'
 libyarp:
-- 3.11.2
+- 3.12.0
 openssl:
 - '3'
 pin_run_as_build:
