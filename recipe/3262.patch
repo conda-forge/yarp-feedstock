@@ -1,0 +1,43 @@
+From 2adde77dde11dbfa86adb53420ed86f3dac682f9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Bartek=20=C5=81ukawski?= <bwmn.peter@gmail.com>
+Date: Thu, 31 Jul 2025 17:40:40 +0200
+Subject: [PATCH] Register bindings for `yarp::dev::ReturnValue`
+
+---
+ bindings/yarp.i                            | 1 +
+ src/libYARP_dev/src/yarp/dev/ReturnValue.h | 3 ++-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/bindings/yarp.i b/bindings/yarp.i
+index 886bf88d27..9c8a45e9dc 100644
+--- a/bindings/yarp.i
++++ b/bindings/yarp.i
+@@ -416,6 +416,7 @@ void setExternal2(yarp::sig::Image *img, PyObject* mem, int w, int h) {
+ %include <yarp/dev/DeviceDriver.h>
+ %include <yarp/dev/PolyDriver.h>
+ %include <yarp/dev/Drivers.h>
++%include <yarp/dev/ReturnValue.h>
+ %include <yarp/dev/IFrameGrabberImage.h>
+ %include <yarp/dev/IFrameGrabberControls.h>
+ %include <yarp/dev/IFrameGrabberControlsDC1394.h>
+diff --git a/src/libYARP_dev/src/yarp/dev/ReturnValue.h b/src/libYARP_dev/src/yarp/dev/ReturnValue.h
+index f9971d458c..4c107f7b46 100644
+--- a/src/libYARP_dev/src/yarp/dev/ReturnValue.h
++++ b/src/libYARP_dev/src/yarp/dev/ReturnValue.h
+@@ -74,6 +74,7 @@ class YARP_dev_API ReturnValue : public yarp::os::Portable
+     bool write(yarp::os::ConnectionWriter& connection) const override;
+ };
+ 
++#ifndef SWIG_PREPROCESSOR_SHOULD_SKIP_THIS
+ #define ReturnValue_ok ReturnValue(yarp::dev::ReturnValue::return_code::return_value_ok)
+ 
+ #if __cplusplus >= 202002L
+@@ -101,7 +102,7 @@ inline ReturnValue yarp_method_deprecated(const char* location)
+ }
+ #define YARP_METHOD_DEPRECATED() yarp_method_deprecated(__func__)
+ #endif
+-
++#endif // SWIG_PREPROCESSOR_SHOULD_SKIP_THIS
+ 
+ }
+ 
