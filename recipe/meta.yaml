@@ -12,10 +12,10 @@ source:
   sha256: b8369cb191ef992ef5d806376e3860a1b14b5757e33a6c1608ae99505a5cd5be
   patches:
     - 2983.patch
+    - 3262.patch
 
 build:
-  number: 4
-
+  number: 5
 outputs:
   - name: {{ namecxx }}
     script: build_cxx.sh  # [unix]
