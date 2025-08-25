@@ -11,7 +11,7 @@ channel_targets:
 cxx_compiler:
 - vs2022
 ffmpeg:
-- '7'
+- '8'
 libjpeg_turbo:
 - '3'
 libopencv:
