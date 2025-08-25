@@ -13,6 +13,7 @@ source:
   patches:
     - 2983.patch
     - 3262.patch
+    - 3271.patch
     - 3272.patch
 
 build:
