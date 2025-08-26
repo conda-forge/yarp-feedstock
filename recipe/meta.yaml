@@ -124,7 +124,7 @@ outputs:
         - cmake
       host:
         - {{ pin_subpackage(namecxx, exact=True) }}
-        - librerun_sdk
+        - librerun-sdk
       run:
         - {{ pin_subpackage(namecxx, exact=True) }}
     test:
