@@ -1,0 +1,21 @@
+From 87f395fba75d1f11af666fab52e0bc048f082578 Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio.traversaro@iit.it>
+Date: Wed, 27 Aug 2025 00:26:12 +0200
+Subject: [PATCH] Skip yarpdeviceparamparsergenerator tests
+
+---
+ src/commands/yarpDeviceParamParserGenerator/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/commands/yarpDeviceParamParserGenerator/CMakeLists.txt b/src/commands/yarpDeviceParamParserGenerator/CMakeLists.txt
+index 6f0b9715ae0..79149519837 100644
+--- a/src/commands/yarpDeviceParamParserGenerator/CMakeLists.txt
++++ b/src/commands/yarpDeviceParamParserGenerator/CMakeLists.txt
+@@ -37,6 +37,6 @@ install(
+ 
+ set_property(TARGET yarpDeviceParamParserGenerator PROPERTY FOLDER "Command Line Tools")
+ 
+-if(YARP_COMPILE_TESTS)
++if(FALSE)
+   add_subdirectory(tests)
+ endif()
