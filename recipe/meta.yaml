@@ -112,6 +112,26 @@ outputs:
       imports:
         - yarp
 
+  - name: yarp-rerun
+    script: build_rerun.sh  # [unix]
+    script: bld_rerun.bat  # [win]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ stdlib("c") }}
+        - {{ compiler('cxx') }}
+        - ninja
+        - cmake
+      host:
+        - {{ pin_subpackage(namecxx, exact=True) }}
+        - librerun_sdk
+      run:
+        - {{ pin_subpackage(namecxx, exact=True) }}
+    test:
+      commands:
+        - if not exist %PREFIX%\\Library\\bin\\yarp-rerun.exe exit 1  # [win]
+        - test -f ${PREFIX}/bin/yarp-rerun  # [unix]
+
   - name: {{ name }}
     build:
       run_exports:
