@@ -1,0 +1,197 @@
+context:
+  name: "yarp"
+  namecxx: "libyarp"
+  namepython: "yarp-python"
+  version: "3.12.1"
+
+recipe:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  - url: https://github.com/robotology/yarp/archive/refs/tags/v${{ version }}.tar.gz
+    sha256: 4239bc97a57a3da00bedec5405bf7188764a99d15befd8c85d7abf8ac59c9540
+    patches:
+      - 2983.patch
+      - 3277.patch
+
+build:
+  number: 0
+
+outputs:
+  - package:
+      name: ${{ namecxx }}
+    build:
+      script:
+        - if: unix
+          then: build_cxx.sh
+        - if: win
+          then: bld_cxx.bat
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - ${{ compiler('cxx') }}
+        - cmake
+        - pkg-config
+        - ninja
+        - multisheller
+        - ycm-cmake-modules
+        - if: not win
+          then:
+            - bison
+            - flex
+      host:
+        - ace
+        - tinyxml
+        - eigen
+        - sdl
+        - sqlite
+        - libjpeg-turbo
+        - if: not win
+          then:
+            - bash-completion
+        - if: linux
+          then:
+            - libi2c
+            - libgl-devel
+            - xorg-libxfixes
+        - robot-testing-framework
+        - libpng
+        - zlib
+        - soxr
+        - if: not win
+          then:
+            - libedit
+        - libopencv
+        - portaudio
+        - qt-main
+        - ffmpeg
+      run:
+        - ycm-cmake-modules
+        - eigen
+      run_exports:
+        - ${{ pin_subpackage(namecxx, upper_bound='x.x.x') }}
+    tests:
+      - script:
+          - yarp help
+          - if: not win
+            then:
+              - test -f ${PREFIX}/include/yarp/os/all.h
+              - test -f ${PREFIX}/include/yarp/cv/Cv.h
+              - if: linux
+                then:
+                  - test -f ${PREFIX}/lib/libYARP_os.so
+              - if: osx
+                then:
+                  - test -f ${PREFIX}/lib/libYARP_os.dylib
+              - test -f ${PREFIX}/lib/cmake/YARP_os/YARP_osConfig.cmake
+              - test -f ${PREFIX}/lib/yarp/yarp_pm_depthimage_compression_zlib.so
+          - if: win
+            then:
+              - if not exist %PREFIX%\\Library\\include\\yarp\\os\\all.h exit 1
+              - if not exist %PREFIX%\\Library\\include\\yarp\\cv\\Cv.h exit 1
+              - if not exist %PREFIX%\\Library\\lib\\YARP_os.lib exit 1
+              - if not exist %PREFIX%\\Library\\bin\\YARP_os.dll exit 1
+              - if not exist %PREFIX%\\Library\\lib\\cmake\\YARP_os\\YARP_osConfig.cmake exit 1
+              - if not exist %PREFIX%\\Library\\lib\\yarp\\yarp_pm_depthimage_compression_zlib.dll exit 1
+
+  - package:
+      name: ${{ namepython }}
+    build:
+      script:
+        - if: unix
+          then: build_py.sh
+        - if: win
+          then: bld_py.bat
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - ${{ compiler('cxx') }}
+        - swig
+        - ninja
+        - cmake
+        - if: build_platform != target_platform
+          then:
+            - python
+            - cross-python_${{ target_platform }}
+      host:
+        - ${{ pin_subpackage(namecxx, exact=true) }}
+        - python
+        - openssl
+      run:
+        - ${{ pin_subpackage(namecxx, exact=true) }}
+        - python
+        - numpy
+    tests:
+      - python:
+          imports:
+            - yarp
+
+  - package:
+      name: yarp-rerun
+    build:
+      script:
+        - if: unix
+          then: build_rerun.sh
+        - if: win
+          then: bld_rerun.bat
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - ${{ compiler('cxx') }}
+        - ninja
+        - cmake
+      host:
+        - ${{ pin_subpackage(namecxx, exact=true) }}
+        - librerun-sdk
+      run:
+        - ${{ pin_subpackage(namecxx, exact=true) }}
+    tests:
+      - script:
+          - if: win
+            then:
+              - if not exist %PREFIX%\\Library\\bin\\yarpRerun.exe exit 1
+          - if: unix
+            then:
+              - test -f ${PREFIX}/bin/yarpRerun
+
+  - package:
+      name: ${{ name }}
+    requirements:
+      run:
+        - ${{ pin_subpackage(namecxx, exact=true) }}
+        - ${{ pin_subpackage(namepython, upper_bound='x.x.x') }}
+        - ${{ pin_subpackage('yarp-rerun', upper_bound='x.x.x') }}
+      run_exports:
+        - ${{ pin_subpackage(namecxx, upper_bound='x.x.x') }}
+    tests:
+      - python:
+          imports:
+            - yarp
+
+  - package:
+      name: yarp-cxx
+    requirements:
+      run:
+        - ${{ pin_subpackage(namecxx, exact=true) }}
+      run_exports:
+        - ${{ pin_subpackage(namecxx, upper_bound='x.x.x') }}
+    tests:
+      - script:
+          - yarp help
+
+about:
+  homepage: https://github.com/robotology/yarp
+  license: BSD-3-Clause AND MIT AND GPL-3.0-or-later
+  license_file:
+    - COPYING
+    - extern/thrift/LICENSES/BSD-3-Clause.txt
+    - extern/dirent/dirent/LICENSE
+  summary: YARP is a library and toolkit for communication and device interfaces, used on everything from humanoids to embedded devices.
+
+extra:
+  recipe-maintainers:
+    - traversaro
