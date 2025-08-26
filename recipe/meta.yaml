@@ -129,8 +129,8 @@ outputs:
         - {{ pin_subpackage(namecxx, exact=True) }}
     test:
       commands:
-        - if not exist %PREFIX%\\Library\\bin\\yarp-rerun.exe exit 1  # [win]
-        - test -f ${PREFIX}/bin/yarp-rerun  # [unix]
+        - if not exist %PREFIX%\\Library\\bin\\yarpRerun.exe exit 1  # [win]
+        - test -f ${PREFIX}/bin/yarpRerun  # [unix]
 
   - name: {{ name }}
     build:
