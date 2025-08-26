@@ -14,6 +14,8 @@ source:
     patches:
       - 2983.patch
       - 3277.patch
+      # Skip as it is problematic in cross-compilation
+      - skip_yarp_generate_device_param_parser_tests.patch
 
 build:
   number: 0
