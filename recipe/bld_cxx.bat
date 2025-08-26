@@ -48,6 +48,7 @@ cmake -G "Ninja" ^
     -DENABLE_yarpmod_usbCameraRaw:BOOL=OFF ^
     -DCREATE_PYTHON:BOOL=OFF ^
     -DYARP_DISABLE_VERSION_SOURCE:BOOL=ON ^
+    -DCMAKE_DISABLE_FIND_PACKAGE_rerun_sdk:BOOL=ON ^
     %SRC_DIR%
 if errorlevel 1 exit 1
 
