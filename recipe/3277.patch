@@ -1,0 +1,31 @@
+From ac9a68d5489af55a1f5a3552985178531e5f9c24 Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio.traversaro@iit.it>
+Date: Tue, 26 Aug 2025 22:12:51 +0200
+Subject: [PATCH] Permit to build yarp-rerun as an indipendent CMake project
+
+Similar to what we do for bindings in https://github.com/robotology/yarp/blob/v3.12.1/bindings/CMakeLists.txt#L5, for packaging purposes it is convenient to be able to build yarp-rerun as a standalone package, to avoid the need to add the rerun dependency in the main YARP package.
+---
+ src/commands/yarpRerun/CMakeLists.txt | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/src/commands/yarpRerun/CMakeLists.txt b/src/commands/yarpRerun/CMakeLists.txt
+index 9f9d73bbd7..3eef6aab5f 100644
+--- a/src/commands/yarpRerun/CMakeLists.txt
++++ b/src/commands/yarpRerun/CMakeLists.txt
+@@ -1,6 +1,16 @@
+ # SPDX-FileCopyrightText: 2025-2025 Istituto Italiano di Tecnologia (IIT)
+ # SPDX-License-Identifier: BSD-3-Clause
+ 
++if(NOT DEFINED CMAKE_MINIMUM_REQUIRED_VERSION)
++  cmake_minimum_required(VERSION 3.19)
++
++  project(yarp-rerun)
++
++  find_package(YARP REQUIRED)
++
++  include(GNUInstallDirs)
++endif()
++
+ find_package(rerun_sdk QUIET)
+ if(NOT rerun_sdk_FOUND)
+     message(STATUS  "rerun_sdk not found. Skipping yarpRerun.")
