@@ -52,6 +52,7 @@ cmake ${CMAKE_ARGS} -GNinja .. \
     -DENABLE_yarpmod_AudioPlayerWrapper:BOOL=ON \
     -DENABLE_yarpmod_AudioRecorderWrapper:BOOL=ON \
     -DENABLE_yarpmod_opencv_grabber:BOOL=ON \
+    -DENABLE_yarpmod_openCVGrabber:BOOL=ON \
     -DENABLE_yarpmod_portaudio:BOOL=ON \
     -DENABLE_yarpmod_portaudioPlayer:BOOL=ON \
     -DENABLE_yarpmod_portaudioRecorder:BOOL=ON \
