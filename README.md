@@ -201,5 +201,6 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@Nicogene](https://github.com/Nicogene/)
 * [@traversaro](https://github.com/traversaro/)
 
