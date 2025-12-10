@@ -13,8 +13,6 @@ source:
     sha256: e29500d919129e30f07fd42da12f69d3cdd4380d42e528baf790c9b1e4e06eb6
     patches:
       - 2983.patch
-      - 3277.patch
-      - 3279.patch
       # Skip as it is problematic in cross-compilation
       - skip_yarp_generate_device_param_parser_tests.patch
 
