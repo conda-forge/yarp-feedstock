@@ -2,7 +2,7 @@ context:
   name: "yarp"
   namecxx: "libyarp"
   namepython: "yarp-python"
-  version: "3.12.1"
+  version: "3.12.2"
 
 recipe:
   name: ${{ name }}
@@ -10,7 +10,7 @@ recipe:
 
 source:
   - url: https://github.com/robotology/yarp/archive/refs/tags/v${{ version }}.tar.gz
-    sha256: 4239bc97a57a3da00bedec5405bf7188764a99d15befd8c85d7abf8ac59c9540
+    sha256: e29500d919129e30f07fd42da12f69d3cdd4380d42e528baf790c9b1e4e06eb6
     patches:
       - 2983.patch
       - 3277.patch
@@ -19,7 +19,7 @@ source:
       - skip_yarp_generate_device_param_parser_tests.patch
 
 build:
-  number: 3
+  number: 0
 
 outputs:
   - package:
@@ -90,15 +90,13 @@ outputs:
                   - test -f ${PREFIX}/lib/libYARP_os.dylib
               - test -f ${PREFIX}/lib/cmake/YARP_os/YARP_osConfig.cmake
               - test -f ${PREFIX}/lib/yarp/yarp_pm_depthimage_compression_zlib.so
-          - if: win
-            then:
+            else:
               - if not exist %PREFIX%\\Library\\include\\yarp\\os\\all.h exit 1
               - if not exist %PREFIX%\\Library\\include\\yarp\\cv\\Cv.h exit 1
               - if not exist %PREFIX%\\Library\\lib\\YARP_os.lib exit 1
               - if not exist %PREFIX%\\Library\\bin\\YARP_os.dll exit 1
               - if not exist %PREFIX%\\Library\\lib\\cmake\\YARP_os\\YARP_osConfig.cmake exit 1
               - if not exist %PREFIX%\\Library\\lib\\yarp\\yarp_pm_depthimage_compression_zlib.dll exit 1
-
   - package:
       name: ${{ namepython }}
     build:
