@@ -98,5 +98,5 @@ done
 
 # Enable bash completions for zsh by appending the sourcing of the yarp completion script
 echo "" >> ${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.zsh
-echo "source $CONDA_PREFIX/share/bash-completion/completions/yarp" >> ${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.zsh
+echo 'source $CONDA_PREFIX/share/bash-completion/completions/yarp' >> ${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.zsh
 echo "" >> ${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.zsh
