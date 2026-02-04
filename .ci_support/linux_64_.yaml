@@ -27,7 +27,7 @@ libopencv:
 libpng:
 - '1.6'
 librerun_sdk:
-- 0.28.2
+- 0.29.0
 openssl:
 - '3.5'
 pin_run_as_build:
