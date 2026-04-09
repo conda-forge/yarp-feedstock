@@ -29,7 +29,7 @@ libopencv:
 libpng:
 - '1.6'
 librerun_sdk:
-- 0.30.0
+- 0.31.2
 macos_machine:
 - arm64-apple-darwin20.0.0
 openssl:
