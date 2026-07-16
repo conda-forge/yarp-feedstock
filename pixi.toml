@@ -5,7 +5,7 @@
 
 [workspace]
 name = "yarp-feedstock"
-version = "3.62.0"  # conda-smithy version used to generate this file
+version = "2026.6.14"  # conda-smithy version used to generate this file
 description = "Pixi configuration for conda-forge/yarp-feedstock"
 authors = ["@conda-forge/yarp"]
 channels = ["conda-forge"]
