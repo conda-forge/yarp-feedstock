@@ -17,7 +17,7 @@ source:
       - skip_yarp_generate_device_param_parser_tests.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - package:
