@@ -15,6 +15,8 @@ source:
       - 2983.patch
       # Backport OpenCV 5 support from https://github.com/robotology/yarp/pull/3349
       - 3349.patch
+      # Backport FFmpeg 9 support
+      - ffmpeg9.patch
       # Skip as it is problematic in cross-compilation
       - skip_yarp_generate_device_param_parser_tests.patch
 
