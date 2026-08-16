@@ -17,6 +17,8 @@ source:
       - 3349.patch
       # Backport FFmpeg 9 support
       - ffmpeg9.patch
+      # Fix Python bindings generation with SWIG 4.5
+      - swig45.patch
       # Skip as it is problematic in cross-compilation
       - skip_yarp_generate_device_param_parser_tests.patch
 
