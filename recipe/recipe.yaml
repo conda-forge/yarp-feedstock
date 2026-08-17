@@ -101,6 +101,14 @@ outputs:
               - if not exist %PREFIX%\\Library\\bin\\YARP_os.dll exit 1
               - if not exist %PREFIX%\\Library\\lib\\cmake\\YARP_os\\YARP_osConfig.cmake exit 1
               - if not exist %PREFIX%\\Library\\lib\\yarp\\yarp_pm_depthimage_compression_zlib.dll exit 1
+      - requirements:
+          run:
+            - ${{ compiler('cxx') }}
+            - cmake
+            - cmake-package-check
+            - ninja
+        script:
+          - cmake-package-check YARP_cv --targets YARP::YARP_cv
   - package:
       name: ${{ namepython }}
     build:
