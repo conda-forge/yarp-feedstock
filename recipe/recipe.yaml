@@ -40,7 +40,7 @@ outputs:
         - ${{ stdlib('c') }}
         - ${{ compiler('cxx') }}
         - cmake
-        - pkg-config
+        - pkgconf
         - ninja
         - multisheller
         - ycm-cmake-modules
