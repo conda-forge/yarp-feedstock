@@ -1,0 +1,41 @@
+diff --git a/src/portmonitors/rpc_monitor/tests/CMakeLists.txt b/src/portmonitors/rpc_monitor/tests/CMakeLists.txt
+--- a/src/portmonitors/rpc_monitor/tests/CMakeLists.txt
++++ b/src/portmonitors/rpc_monitor/tests/CMakeLists.txt
+@@ -5,6 +5,8 @@
+ if (BUILD_SHARED_LIBS)
+     include(YarpCatchUtils)
+ 
++    find_package(Threads REQUIRED)
++
+     add_executable(harness_pm_rpc_monitor)
+ 
+     target_sources(harness_pm_rpc_monitor PRIVATE
+@@ -15,6 +17,7 @@
+       PRIVATE
+         YARP_harness
+         YARP::YARP_os
++        Threads::Threads
+     )
+ 
+     set_property(TARGET harness_pm_rpc_monitor PROPERTY FOLDER "Test")
+diff --git a/src/commands/yarpRerun/yarpRerun.cpp b/src/commands/yarpRerun/yarpRerun.cpp
+--- a/src/commands/yarpRerun/yarpRerun.cpp
++++ b/src/commands/yarpRerun/yarpRerun.cpp
+@@ -16,7 +16,7 @@
+ #include <yarp/dev/all.h>
+ #include <yarp/dev/MultipleAnalogSensorsInterfaces.h>
+ #include <yarp/dev/SensorStreamingData.h>
+-#include <yarp/dev/impl/jointData.h>
++#include <yarp/dev/JointStateData.h>
+ #include <yarp/sig/LaserScan2D.h>
+ #include <yarp/sig/PointCloud.h>
+ 
+@@ -404,7 +404,7 @@
+ 
+ bool  RerunLogger::process_RobotState (const Bottle* pbot)
+ {
+-    yarp::dev::impl::jointData data;
++    yarp::dev::JointStateData data;
+     bool bcp = yarp::os::Portable::copyPortable(*pbot, data);
+     if (bcp)
+     {
