@@ -1,0 +1,4 @@
+# Keep OpenCV 4 builds available for downstream packages such as icub-main.
+libopencv:
+  - "4.13.0"
+  - "5.1.0"

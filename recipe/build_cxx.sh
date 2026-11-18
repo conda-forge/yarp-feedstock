@@ -12,6 +12,13 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == "1" ]]; then
   export CMAKE_ARGS="${CMAKE_ARGS} -DYARP_FLT_EXP_DIG:STRING=3 -DYARP_DBL_EXP_DIG:STRING=4 -DYARP_LDBL_EXP_DIG:STRING=5 -DYARP_FLOAT32_IS_IEC559:STRING=1 -DYARP_FLOAT64_IS_IEC559:STRING=1 -DYARP_FLOAT128_IS_IEC559:STRING=1"
 fi
 
+if [[ "${target_platform}" == linux-* ]]; then
+    # Compiler activation can pass bare binutils names in CMAKE_ARGS.
+    # Resolve them before CMake turns them into paths in the build directory.
+    CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_AR:FILEPATH=$(command -v "${AR}")"
+    CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_RANLIB:FILEPATH=$(command -v "${RANLIB}")"
+fi
+
 if [[ "${target_platform}" == osx-* ]]; then
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
     CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"

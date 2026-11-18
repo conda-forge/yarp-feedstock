@@ -1,5 +1,5 @@
-About libyarp-feedstock
-=======================
+About yarp-feedstock
+====================
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/yarp-feedstock/blob/main/LICENSE.txt)
 
@@ -66,10 +66,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-yarp--python-green.svg)](https://anaconda.org/conda-forge/yarp-python) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/yarp-python.svg)](https://anaconda.org/conda-forge/yarp-python) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/yarp-python.svg)](https://anaconda.org/conda-forge/yarp-python) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/yarp-python.svg)](https://anaconda.org/conda-forge/yarp-python) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-yarp--rerun-green.svg)](https://anaconda.org/conda-forge/yarp-rerun) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/yarp-rerun.svg)](https://anaconda.org/conda-forge/yarp-rerun) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/yarp-rerun.svg)](https://anaconda.org/conda-forge/yarp-rerun) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/yarp-rerun.svg)](https://anaconda.org/conda-forge/yarp-rerun) |
 
-Installing libyarp
-==================
+Installing yarp
+===============
 
-Installing `libyarp` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `yarp` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
@@ -198,17 +198,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating libyarp-feedstock
-==========================
+Updating yarp-feedstock
+=======================
 
-If you would like to improve the libyarp recipe or build a new
+If you would like to improve the yarp recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/libyarp-feedstock are
+Note that all branches in the conda-forge/yarp-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
