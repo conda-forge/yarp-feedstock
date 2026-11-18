@@ -13,8 +13,6 @@ source:
     sha256: 3f61738bcf1062ee6858a4a5cc58bb37fea0979b25067e218243867a980a80c4
     patches:
       - 2983.patch
-      # Backport OpenCV 5 support from https://github.com/robotology/yarp/pull/3349
-      - 3349.patch
       # Backport FFmpeg 9 support
       - ffmpeg9.patch
       # Fix Python bindings generation with SWIG 4.5

@@ -1,7 +1,7 @@
 diff --git a/src/libYARP_sig/src/yarp/sig/SoundFileMp3.cpp b/src/libYARP_sig/src/yarp/sig/SoundFileMp3.cpp
 --- a/src/libYARP_sig/src/yarp/sig/SoundFileMp3.cpp
 +++ b/src/libYARP_sig/src/yarp/sig/SoundFileMp3.cpp
-@@ -115,7 +115,28 @@ bool decode(AVCodecContext* dec_ctx, AVPacket* pkt, AVFrame* frame, Sound& sound
+@@ -115,7 +115,28 @@
  
  int check_sample_fmt(const AVCodec * codec, enum AVSampleFormat sample_fmt)
  {
@@ -31,19 +31,22 @@ diff --git a/src/libYARP_sig/src/yarp/sig/SoundFileMp3.cpp b/src/libYARP_sig/src
  
      while (*p != AV_SAMPLE_FMT_NONE)
      {
-@@ -127,16 +148,33 @@ int check_sample_fmt(const AVCodec * codec, enum AVSampleFormat sample_fmt)
+@@ -127,16 +148,33 @@
      return 0;
  }
  
--int select_sample_rate(const AVCodec * codec)
-+int select_sample_rate(const AVCodec* codec, int* sample_rate)
- {
+-int select_sample_rate(const AVCodec* codec, int desired_rate)
+-{
 -    const int* p;
++int select_sample_rate(const AVCodec* codec, int desired_rate, int* sample_rate)
++{
 +    const int* p = nullptr;
      int best_samplerate = 0;
  
 -    if (!codec->supported_samplerates) {
--        return 44100;
+-        return desired_rate; // Use the desired rate if codec doesn't specify
+-    }
+-
 +#if LIBAVCODEC_VERSION_MAJOR >= 62
 +    const void* supported_configs = nullptr;
 +    int ret = avcodec_get_supported_config(nullptr,
@@ -55,22 +58,21 @@ diff --git a/src/libYARP_sig/src/yarp/sig/SoundFileMp3.cpp b/src/libYARP_sig/src
 +    if (ret < 0) {
 +        yCError(SOUNDFILE_MP3, "Could not query the sample rates supported by the selected codec");
 +        return ret;
-     }
--
++    }
 +    p = static_cast<const int*>(supported_configs);
 +#else
      p = codec->supported_samplerates;
 +#endif
 +
 +    if (!p) {
-+        *sample_rate = 44100;
++        *sample_rate = desired_rate;
 +        return 0;
 +    }
 +
      while (*p)
      {
-         if (!best_samplerate || abs(44100 - *p) < abs(44100 - best_samplerate)) {
-@@ -144,7 +182,8 @@ int select_sample_rate(const AVCodec * codec)
+         // Find the closest supported rate to the desired rate
+@@ -145,7 +183,8 @@
          }
           p++;
      }
@@ -80,7 +82,7 @@ diff --git a/src/libYARP_sig/src/yarp/sig/SoundFileMp3.cpp b/src/libYARP_sig/src
  }
  
  bool encode(AVCodecContext* ctx, AVFrame* frame, AVPacket* pkt, std::fstream& os)
-@@ -184,16 +223,32 @@ bool encode(AVCodecContext* ctx, AVFrame* frame, AVPacket* pkt, std::fstream& os
+@@ -185,16 +224,32 @@
  /* select layout with the highest channel count */
  static int select_channel_layout(const AVCodec *codec, AVChannelLayout *dst)
  {
@@ -116,7 +118,7 @@ diff --git a/src/libYARP_sig/src/yarp/sig/SoundFileMp3.cpp b/src/libYARP_sig/src
      while (p->nb_channels)
      {
          int nb_channels = p->nb_channels;
-@@ -284,7 +339,12 @@ bool yarp::sig::file::write_mp3_file(const Sound& sound_data, const char* filena
+@@ -285,7 +340,12 @@
  
      // check that the encoder supports s16 pcm input
      c->sample_fmt = AV_SAMPLE_FMT_S16;
@@ -130,12 +132,12 @@ diff --git a/src/libYARP_sig/src/yarp/sig/SoundFileMp3.cpp b/src/libYARP_sig/src
      {
          yCError(SOUNDFILE_MP3, "Encoder does not support sample format %s",
          av_get_sample_fmt_name(c->sample_fmt));
-@@ -292,7 +352,11 @@ bool yarp::sig::file::write_mp3_file(const Sound& sound_data, const char* filena
+@@ -293,7 +353,11 @@
      }
  
      // select other audio parameters supported by the encoder
--    c->sample_rate = select_sample_rate(codec);
-+    ret = select_sample_rate(codec, &c->sample_rate);
+-    c->sample_rate = select_sample_rate(codec, sound_data.getFrequency());
++    ret = select_sample_rate(codec, sound_data.getFrequency(), &c->sample_rate);
 +    if (ret < 0)
 +    {
 +        return false;
@@ -143,16 +145,47 @@ diff --git a/src/libYARP_sig/src/yarp/sig/SoundFileMp3.cpp b/src/libYARP_sig/src
  #if LIBAVCODEC_VERSION_MAJOR >= 61
      // from https://github.com/FFmpeg/FFmpeg/commit/f5ef91e02080316f50d606f5b0b03333bb627ed7#diff-85abeaf18e8c74a972fa1f5ab3c2fdfa7ddc818f9048196c6bd5f63a837b076aL167
      ret = select_channel_layout(codec, &c->ch_layout);
+@@ -711,7 +775,13 @@
+ 
+     // check that the encoder supports s16 pcm input
+     c->sample_fmt = AV_SAMPLE_FMT_S16;
+-    if (!check_sample_fmt(codec, c->sample_fmt))
++    ret = check_sample_fmt(codec, c->sample_fmt);
++    if (ret < 0)
++    {
++        avcodec_free_context(&c);
++        return false;
++    }
++    if (ret == 0)
+     {
+         yCError(SOUNDFILE_MP3, "Encoder does not support sample format %s",
+         av_get_sample_fmt_name(c->sample_fmt));
+@@ -720,7 +790,12 @@
+     }
+ 
+     // select other audio parameters supported by the encoder
+-    c->sample_rate = select_sample_rate(codec, data.getFrequency());
++    ret = select_sample_rate(codec, data.getFrequency(), &c->sample_rate);
++    if (ret < 0)
++    {
++        avcodec_free_context(&c);
++        return false;
++    }
+ #if LIBAVCODEC_VERSION_MAJOR >= 61
+     ret = select_channel_layout(codec, &c->ch_layout);
+     if (ret < 0)
 diff --git a/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp b/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp
 --- a/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp
 +++ b/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp
-@@ -95,16 +95,29 @@ bool FfmpegMonitorObject::create(const yarp::os::Property& options)
+@@ -85,16 +85,29 @@
          return false;
      }
  
 -    if (!codec->pix_fmts)
 -    {
 -        yCWarning(FFMPEGMONITOR, "The specified codec (%s) has unknown available pixel formats. There might be visualization issues.", codec->name);
+-    }
+-    else
 +    const AVPixelFormat* supportedPixelFormats = nullptr;
 +#if LIBAVCODEC_VERSION_MAJOR >= 62
 +    const void* supportedConfigs = nullptr;
@@ -164,8 +197,7 @@ diff --git a/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp b/s
 +                                     nullptr) < 0) {
 +        yCError(FFMPEGMONITOR, "Could not query the pixel formats supported by codec %s.", codec->name);
 +        return false;
-     }
--    else
++    }
 +    supportedPixelFormats = static_cast<const AVPixelFormat*>(supportedConfigs);
 +#else
 +    supportedPixelFormats = codec->pix_fmts;
@@ -181,7 +213,7 @@ diff --git a/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp b/s
  
          if (test == AV_PIX_FMT_NONE)
          {
-@@ -121,7 +134,7 @@ bool FfmpegMonitorObject::create(const yarp::os::Property& options)
+@@ -111,7 +124,7 @@
                  break;
              }
              ++i;
@@ -190,7 +222,7 @@ diff --git a/src/portmonitors/image_compression_ffmpeg/ffmpegPortmonitor.cpp b/s
  
              if (test != AV_PIX_FMT_NONE)
              {
-@@ -131,7 +144,7 @@ bool FfmpegMonitorObject::create(const yarp::os::Property& options)
+@@ -121,7 +134,7 @@
  
          if (!found)
          {
