@@ -87,7 +87,8 @@ cmake --build . --config Release --target install
 # Skip ControlBoardRemapperTest and FrameTransformClientTest as the tests are flaky
 # Some tets are flaky
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
-  ctest --output-on-failure --repeat until-pass:5 -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic"
+  # RunTest launches the testModule helper by name.
+  PATH="${PWD}/bin:${PATH}" ctest --output-on-failure --repeat until-pass:5 -C Release -E "audio|PeriodicThreadTest|ControlBoardRemapperTest|FrameTransformClientTest|group_basic"
 fi
 
 # Generate and copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.

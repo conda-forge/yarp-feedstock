@@ -19,7 +19,8 @@ source:
       - swig45.patch
       # Skip as it is problematic in cross-compilation
       - skip_yarp_generate_device_param_parser_tests.patch
-      # Fix RPC monitor test thread linking: https://github.com/robotology/yarp/pull/3424
+      # Fix RPC monitor test thread linking and rerun joint state type:
+      # https://github.com/robotology/yarp/pull/3424
       - 3424.patch
 
 build:
